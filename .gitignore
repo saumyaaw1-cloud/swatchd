@@ -1,0 +1,36 @@
+# Dependencies and local environments
+node_modules/
+.venv/
+
+# OS and editor files
+.DS_Store
+*.swp
+*.swo
+
+# Python and generated caches
+__pycache__/
+*.py[cod]
+*.cache
+
+# Local datasets and generated annotations
+datasets/eyeliner_seg/images/
+datasets/eyeliner_seg/labels/
+datasets/eyeliner_seg/manifest.json
+datasets/intake/raw/
+datasets/intake/labelme/
+datasets/intake/COLLECTION_AGENT_BRIEF.md
+
+# Training outputs and source checkpoints
+models/training_runs/
+models/eyeliner-seg-v0.onnx
+*.pt
+
+# Local portfolio image variants
+assets/swatchd-portfolio-*.png
+
+# Unused visual experiments
+.case-study-deploy/
+assets/door-opening.json
+assets/door.fbx
+doorScene.js
+espn-case-study/

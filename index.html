@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>swatch'd</title>
+  <link rel="stylesheet" href="style.css?v=20260810-glossier-7">
+</head>
+<body>
+
+<section id="homeView" class="home-view" aria-labelledby="homeTitle">
+  <div class="home-hero">
+    <div class="home-motion-field" aria-hidden="true">
+      <span class="motion-ring motion-ring-a"></span>
+      <span class="motion-ring motion-ring-b"></span>
+      <span class="motion-spark motion-spark-a"></span>
+      <span class="motion-spark motion-spark-b"></span>
+      <span class="motion-dot motion-dot-a"></span>
+      <span class="motion-dot motion-dot-b"></span>
+    </div>
+
+    <h1 id="homeTitle" class="home-tagline"><span>swatch'd</span></h1>
+    <p class="home-descriptor">A better way to wing it.</p>
+
+    <button id="enterExperienceButton" class="door-button" type="button" data-enter-experience aria-label="Open the compact mirror to begin the eyeliner coach">
+      <span class="door-stage" aria-hidden="true">
+        <span class="door-track"></span>
+        <span id="compactScene" class="door-three">
+          <span class="door-loading"></span>
+        </span>
+        <span class="door-hit-zone" data-compact-hover></span>
+      </span>
+    </button>
+
+    <div class="home-product-note">
+      <span>Live practice mirror</span>
+      <p>Guidance shaped around your eye.</p>
+    </div>
+
+    <div class="home-sequence" aria-hidden="true">
+      <span>place</span><i></i><span>glide</span><i></i><span>return</span><i></i><span>refine</span>
+    </div>
+  </div>
+</section>
+
+<div id="experienceIntro" class="experience-intro" hidden aria-hidden="true">
+  <div class="experience-intro-phrases">
+    <p>Welcome to your guided eyeliner session.</p>
+    <p>Next, enable your camera so we can see your eye.</p>
+    <p>We'll map your eye shape and place a personalized guide.</p>
+    <p>Follow the guide as you draw. We'll coach you along the way.</p>
+  </div>
+</div>
+
+<main id="coachView" class="app-shell" hidden>
+  <section class="coach-panel" aria-label="Eyeliner coaching status">
+    <div class="brand-lockup">
+      <h1>swatch'd</h1>
+      <div class="mood-strip" aria-hidden="true">
+        <span>dot dot flick</span>
+        <span>tiny stamps</span>
+        <span>soft lift</span>
+      </div>
+    </div>
+
+    <div class="eye-picker" aria-label="Choose eye to coach">
+      <span>Focus eye</span>
+      <div class="eye-picker-buttons">
+        <button class="eye-focus-button is-active" type="button" data-eye-focus="auto" aria-pressed="true">Auto</button>
+        <button class="eye-focus-button" type="button" data-eye-focus="left" aria-pressed="false">Left</button>
+        <button class="eye-focus-button" type="button" data-eye-focus="right" aria-pressed="false">Right</button>
+      </div>
+    </div>
+
+    <div class="lesson-card" aria-live="polite">
+      <span id="stepLabel">Prep</span>
+      <h2 id="stepTitle">Let me see your eye</h2>
+      <p id="coachMessage" class="coach-message">Allow camera access and face the camera softly, with your gaze straight ahead.</p>
+      <p id="coachTip" class="coach-tip">Artist note: keep the brow and lid relaxed. The line should flatter the eye you actually wear through the day.</p>
+      <p id="nextAction" class="next-action">Press Calibrate eye before drawing, then I will track the new line appearing on your face.</p>
+    </div>
+
+    <div class="button-row">
+      <button id="startCameraButton" type="button">Start camera</button>
+      <button id="calibrateButton" type="button">Calibrate eye</button>
+      <button id="resetButton" type="button">Reset coaching</button>
+    </div>
+  </section>
+
+  <section class="camera-container" aria-label="Live camera eyeliner coach">
+    <div class="camera-stickers" aria-hidden="true">
+      <span class="sticker-star sticker-star-a"></span>
+      <span class="sticker-star sticker-star-b"></span>
+      <span class="sticker-curl"></span>
+    </div>
+    <video id="video" autoplay playsinline muted></video>
+    <canvas id="canvas"></canvas>
+  </section>
+</main>
+
+<div id="customCursor" class="custom-cursor" aria-hidden="true">
+  <span class="cursor-spark"></span>
+</div>
+
+<script type="importmap">
+  {
+    "imports": {
+      "three": "https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.module.js",
+      "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.180.0/examples/jsm/"
+    }
+  }
+</script>
+<script type="module" src="app.js?v=20260810-compact-15"></script>
+
+</body>
+</html>

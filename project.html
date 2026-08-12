@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Swatch'd product design and design engineering case study.">
+  <title>Swatch'd - Product Design Case Study</title>
+  <link rel="stylesheet" href="project.css?v=20260807-case1">
+</head>
+<body>
+  <header class="case-nav">
+    <a class="case-wordmark" href="./">swatch'd</a>
+    <nav aria-label="Case study navigation">
+      <a href="#research">Research</a>
+      <a href="#flows">Flows</a>
+      <a href="#solution">Solution</a>
+      <a class="nav-launch" href="./?vision=model">Prototype <span aria-hidden="true">↗</span></a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="case-hero">
+      <div class="hero-meta">
+        <span>Product design</span>
+        <span>Design engineering</span>
+        <span>Independent / 2026</span>
+      </div>
+      <div class="hero-copy">
+        <p class="kicker">AI + AR makeup coach</p>
+        <h1>Teaching the hand,<br>not tracing the eye.</h1>
+        <p class="hero-deck">Swatch'd helps makeup beginners learn winged eyeliner through a face-aware AR guide and a live coach that responds to each mark as it appears.</p>
+      </div>
+      <div class="hero-foot">
+        <a href="./?vision=model">Open working prototype <span aria-hidden="true">↗</span></a>
+        <p>My role: product design, research synthesis, interaction design, visual design, computer vision, and frontend engineering.</p>
+      </div>
+    </section>
+
+    <figure class="hero-media">
+      <img src="assets/swatchd-homepage.png" alt="The pink Swatch'd homepage with an animated door">
+      <figcaption>01 / Product entry</figcaption>
+    </figure>
+
+    <section class="project-brief">
+      <p class="section-label">Overview</p>
+      <div class="brief-statement">
+        <h2>The hard part was not drawing a guide. It was earning trust while the camera was uncertain.</h2>
+      </div>
+      <dl class="brief-facts">
+        <div><dt>Audience</dt><dd>Makeup beginners learning a first wing</dd></div>
+        <div><dt>Platform</dt><dd>Camera-first responsive web prototype</dd></div>
+        <div><dt>Current status</dt><dd>Working vision prototype, formative evaluation</dd></div>
+      </dl>
+    </section>
+
+    <section id="research" class="research-section">
+      <header class="section-heading">
+        <p class="section-label">01 / Discover</p>
+        <h2>Researching the moment of application.</h2>
+        <p>Most beauty content explains what eyeliner should look like. I focused on what a beginner needs while their hand is moving and their eye is partially blocked by a pen.</p>
+      </header>
+
+      <div class="research-methods">
+        <article>
+          <span>Method 01</span>
+          <h3>Technique review</h3>
+          <p>Synthesized recurring MUA guidance around posture, gaze, pressure, anchoring, and eye-shape adaptation.</p>
+        </article>
+        <article>
+          <span>Method 02</span>
+          <h3>Live prototype trials</h3>
+          <p>Used repeated camera sessions to document false positives, occlusion, state jumps, and overlay legibility.</p>
+        </article>
+        <article>
+          <span>Method 03</span>
+          <h3>Failure log</h3>
+          <p>Treated each mismatch between the eye and the coach as evidence about the interaction model, not only the detector.</p>
+        </article>
+      </div>
+
+      <div class="evidence-wall">
+        <div class="evidence-intro">
+          <p class="section-label">Formative evidence</p>
+          <h3>The same trust-breaking moments kept returning.</h3>
+          <p class="evidence-note">These are observed prototype failures, not findings from a completed external usability study.</p>
+        </div>
+        <ol class="evidence-list">
+          <li><span>01</span><strong>The coach raced ahead.</strong><p>No new liner was visible, but noisy pixels advanced several steps.</p></li>
+          <li><span>02</span><strong>The pen hid the evidence.</strong><p>Detection dropped precisely when the hand approached the eye.</p></li>
+          <li><span>03</span><strong>The guide competed with the task.</strong><p>Glow, labels, and dense geometry covered the skin a user needed to see.</p></li>
+          <li><span>04</span><strong>A generic triangle did not feel like eyeliner.</strong><p>The return line needed curve, width, and eye-shape-specific placement.</p></li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="insight-section">
+      <p class="section-label">Synthesis</p>
+      <div class="insight-headline">
+        <h2>Three insights reshaped the product.</h2>
+      </div>
+      <div class="insight-row">
+        <span>01</span><h3>Uncertainty should make the interface quieter.</h3><p>When confidence drops, hold the current instruction and soften the overlay instead of guessing.</p>
+      </div>
+      <div class="insight-row">
+        <span>02</span><h3>Progress must be proven over time.</h3><p>A single frame cannot advance the lesson. The visual condition must remain stable before the state commits.</p>
+      </div>
+      <div class="insight-row">
+        <span>03</span><h3>Beginners need body guidance too.</h3><p>Useful coaching explains where to rest the hand, how to hold the eye, and how much pressure to use.</p>
+      </div>
+    </section>
+
+    <section class="hmw-section">
+      <p class="section-label">How might we</p>
+      <blockquote>How might we coach a precise physical gesture without asking a noisy vision system to pretend it is certain?</blockquote>
+    </section>
+
+    <section id="flows" class="flow-section">
+      <header class="section-heading light-heading">
+        <p class="section-label">02 / Define</p>
+        <h2>A beginner flow built around tiny wins.</h2>
+        <p>The lesson was broken into observable milestones. Each step has one physical action and one visual condition.</p>
+      </header>
+
+      <ol class="user-flow" aria-label="Swatch'd beginner user flow">
+        <li><span>01</span><strong>Enter</strong><small>Permission after intent</small></li>
+        <li><span>02</span><strong>Choose eye</strong><small>Auto, left, or right</small></li>
+        <li><span>03</span><strong>Calibrate</strong><small>Capture the bare eye</small></li>
+        <li><span>04</span><strong>Anchor</strong><small>Find the outer corner</small></li>
+        <li><span>05</span><strong>Extend</strong><small>Move toward the tip</small></li>
+        <li><span>06</span><strong>Return</strong><small>Curve to the lash line</small></li>
+        <li><span>07</span><strong>Refine</strong><small>Fill only what remains</small></li>
+      </ol>
+
+      <div class="state-rule">
+        <span class="rule-number">Rule 01</span>
+        <h3>A coaching state can never move backward.</h3>
+        <p>If the detector becomes confused, the coach stays with the current instruction. Resetting is always an explicit user action.</p>
+      </div>
+    </section>
+
+    <section class="principles-section">
+      <p class="section-label">Design principles</p>
+      <div class="principles-list">
+        <article><span>01</span><h3>Hold, don't flip.</h3><p>Stability is more valuable than apparent responsiveness.</p></article>
+        <article><span>02</span><h3>Guide, don't cover.</h3><p>The overlay must preserve the skin and lash line beneath it.</p></article>
+        <article><span>03</span><h3>Coach the body.</h3><p>Instructions connect the target shape to a specific hand movement.</p></article>
+        <article><span>04</span><h3>Adapt the shape.</h3><p>Wing lift, width, and return curve respond to facial geometry.</p></article>
+      </div>
+    </section>
+
+    <section class="iterations-section">
+      <header class="section-heading">
+        <p class="section-label">03 / Iterate</p>
+        <h2>Every visual decision had a behavioral consequence.</h2>
+      </header>
+
+      <div class="iteration-row">
+        <div class="iteration-copy"><span>Iteration 01</span><h3>From face map to drawing guide</h3><p>Full-face rulers proved tracking was working, but they created visual noise. The final overlay keeps only the active eye contour and wing path.</p></div>
+        <div class="comparison-visual ruler-before" aria-label="Early crowded face mapping overlay"><div class="map-eye"></div><i></i><i></i><i></i><i></i><b>Before</b></div>
+        <div class="comparison-visual guide-after" aria-label="Final minimal eyeliner overlay"><div class="clean-eye"></div><div class="dotted-wing"></div><b>After</b></div>
+      </div>
+
+      <div class="iteration-row">
+        <div class="iteration-copy"><span>Iteration 02</span><h3>From triangle to wearable wing</h3><p>The return line moved farther from the lower edge and became a smooth curve that meets the lash line without cutting into the eye.</p></div>
+        <div class="wing-study thin-wing"><span>Too tight</span><div></div></div>
+        <div class="wing-study shaped-wing"><span>Curved + weighted</span><div></div></div>
+      </div>
+
+      <div class="iteration-row">
+        <div class="iteration-copy"><span>Iteration 03</span><h3>From reactive to trustworthy</h3><p>Frame-by-frame lesson selection became a forward-only temporal state machine with confidence holds and minimum dwell time.</p></div>
+        <div class="signal-visual noisy-signal"><span>Raw confidence</span><svg viewBox="0 0 420 150" aria-hidden="true"><polyline points="0,100 30,22 60,118 90,38 120,126 150,52 180,103 210,18 240,120 270,48 300,111 330,32 360,99 390,46 420,90"/></svg></div>
+        <div class="signal-visual stable-signal"><span>Committed state</span><svg viewBox="0 0 420 150" aria-hidden="true"><polyline points="0,110 85,110 85,86 175,86 175,60 275,60 275,34 420,34"/></svg></div>
+      </div>
+    </section>
+
+    <section class="system-section">
+      <header class="section-heading">
+        <p class="section-label">04 / Design engineering</p>
+        <h2>The interaction is a system across pixels, landmarks, and time.</h2>
+      </header>
+
+      <div class="system-pipeline" aria-label="Computer vision coaching pipeline">
+        <div><span>01</span><strong>Camera</strong><small>Live frame</small></div>
+        <i aria-hidden="true">→</i>
+        <div><span>02</span><strong>Face map</strong><small>Eye geometry</small></div>
+        <i aria-hidden="true">→</i>
+        <div><span>03</span><strong>Segment</strong><small>New liner pixels</small></div>
+        <i aria-hidden="true">→</i>
+        <div><span>04</span><strong>Stabilize</strong><small>Confidence over time</small></div>
+        <i aria-hidden="true">→</i>
+        <div><span>05</span><strong>Coach</strong><small>One next action</small></div>
+      </div>
+
+      <div class="system-decisions">
+        <article><span>Occlusion</span><h3>Hold the last reliable liner state while a pen blocks the eye.</h3></article>
+        <article><span>False positives</span><h3>Compare against a calibrated bare-eye baseline before accepting a mark.</h3></article>
+        <article><span>State jitter</span><h3>Require sustained evidence, then commit forward only.</h3></article>
+      </div>
+    </section>
+
+    <section id="solution" class="solution-section">
+      <header class="solution-heading">
+        <p class="section-label">05 / Final direction</p>
+        <h2>A quiet coach around a precise task.</h2>
+      </header>
+
+      <div class="product-mockup">
+        <aside class="mock-coach">
+          <span class="mock-brand">swatch'd</span>
+          <div class="mock-eye-toggle"><span class="active">Auto</span><span>Left</span><span>Right</span></div>
+          <div class="mock-step"><small>Step 04 / Extend</small><h3>Draw toward the tip.</h3><p>Keep your eye softly open. Rest your little finger on your cheek and pull the pen outward in one short stroke.</p><strong>Hold there while I check the angle.</strong></div>
+        </aside>
+        <div class="mock-camera">
+          <svg viewBox="0 0 900 650" role="img" aria-label="Eye with a minimal dotted wing guide">
+            <rect width="900" height="650" fill="#493c43"/>
+            <ellipse cx="430" cy="340" rx="300" ry="190" fill="#b77d69"/>
+            <path d="M190 352 C300 245 500 238 655 340 C512 447 310 450 190 352 Z" fill="#f8f2ea" stroke="#fff" stroke-width="8"/>
+            <ellipse cx="422" cy="345" rx="88" ry="102" fill="#3a201d"/>
+            <circle cx="452" cy="310" r="14" fill="#fff"/>
+            <path d="M650 340 C730 314 777 270 825 214" fill="none" stroke="#ff5c9d" stroke-width="8" stroke-linecap="round" stroke-dasharray="2 20"/>
+            <path d="M825 214 C779 305 727 351 650 340" fill="none" stroke="#fff" stroke-width="7" stroke-linecap="round" stroke-dasharray="2 20"/>
+          </svg>
+        </div>
+      </div>
+
+      <div class="solution-details">
+        <article><span>Overlay</span><h3>Solid white eye contour, crisp dotted wing, no glow or diagnostic clutter.</h3></article>
+        <article><span>Language</span><h3>One hand action, one posture cue, and one reason to pause.</h3></article>
+        <article><span>Control</span><h3>Users choose the focus eye and explicitly reset calibration or coaching.</h3></article>
+      </div>
+    </section>
+
+    <section class="validation-section">
+      <div class="validation-copy">
+        <p class="section-label">06 / Validate</p>
+        <h2>What the prototype demonstrates, and what still needs proof.</h2>
+      </div>
+      <div class="validation-columns">
+        <div>
+          <h3>Demonstrated</h3>
+          <ul><li>Face-anchored guide geometry</li><li>Selectable active eye</li><li>Trained liner segmentation path</li><li>Forward-only coaching sequence</li><li>Occlusion-aware confidence holding</li></ul>
+        </div>
+        <div>
+          <h3>Still to validate</h3>
+          <ul><li>External testing with makeup beginners</li><li>Performance across skin tones and lighting</li><li>Eye-shape classification reliability</li><li>Completion time and correction rate</li><li>Accessibility of camera-first instruction</li></ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="next-section">
+      <p class="section-label">Next study</p>
+      <h2>Test the full wing with 5–8 beginners, measure every pause, and train on the failures.</h2>
+      <div class="next-measures"><span>Task completion</span><span>Incorrect state changes</span><span>Corrections</span><span>Confidence before / after</span></div>
+    </section>
+
+    <section class="case-cta">
+      <p>Working prototype</p>
+      <h2>Try swatch'd.</h2>
+      <a href="./?vision=model" aria-label="Open the Swatch'd prototype">↗</a>
+    </section>
+  </main>
+
+  <footer class="case-footer"><span>Swatch'd / 2026</span><span>Product design + design engineering</span><a href="#top">Back to top ↑</a></footer>
+</body>
+</html>

@@ -1,0 +1,29 @@
+{
+  "name": "swatchd",
+  "version": "1.0.0",
+  "description": "A browser-based AR eyeliner coaching prototype.",
+  "private": true,
+  "scripts": {
+    "start": "python3 -m http.server 5174",
+    "dataset:convert": "node scripts/convert_labelme_to_yolo_seg.js",
+    "dataset:intake:audit": "node scripts/audit_dataset_intake.js",
+    "dataset:intake:import": "node scripts/import_permitted_images.js",
+    "dataset:intake:prepare": "python3 scripts/prepare_labelme_images.py",
+    "model:train": ".venv/bin/python training/train_eyeliner_seg.py",
+    "model:export": ".venv/bin/python training/export_eyeliner_seg.py",
+    "check": "node --check app.js && node --check compactScene.js && node --check eyelinerSegmentationModel.js",
+    "test": "npm run check"
+  },
+  "keywords": [
+    "computer-vision",
+    "augmented-reality",
+    "beauty-tech",
+    "mediapipe",
+    "onnx"
+  ],
+  "license": "ISC",
+  "type": "module",
+  "dependencies": {
+    "@mediapipe/tasks-vision": "^0.10.35"
+  }
+}
