@@ -38,6 +38,45 @@ const customCursor = document.getElementById("customCursor");
 const USE_TRAINED_LINER_MODEL = new URLSearchParams(window.location.search).get("vision") === "model"
   || window.localStorage.getItem("swatchUseVisionModel") === "true";
 const MODEL_LINER_INTERVAL_MS = 1800;
+const COACH_STEP_DURATION_MS = 10000;
+
+const TIMED_LESSON_SEQUENCE = {
+  placeTip: "outerCornerAnchor",
+  limitedLidMap: "outerCornerAnchor",
+  downturnedMap: "outerCornerAnchor",
+  roundMap: "outerCornerAnchor",
+  upturnedMap: "outerCornerAnchor",
+  findOuterCorner: "outerCornerAnchor",
+  outerCornerAnchor: "firstDot",
+  firstDot: "tailDirection",
+  firstMark: "tailDirection",
+  stampCorner: "tailDirection",
+  anchorHand: "tailDirection",
+  dontStretch: "tailDirection",
+  openEyeStamps: "tailLength",
+  downturnedLift: "tailLength",
+  roundElongate: "tailLength",
+  upturnedBalance: "tailLength",
+  tailDirection: "tailLength",
+  softPressure: "tailLength",
+  featherStrokes: "tailLength",
+  buildSlowly: "steadyPull",
+  tailLength: "steadyPull",
+  rotateHand: "steadyPull",
+  tooHigh: "steadyPull",
+  tooLow: "steadyPull",
+  steadyPull: "returnStart",
+  extendTip: "returnStart",
+  tooLong: "returnStart",
+  keepLashThin: "returnStart",
+  returnStart: "lashConnection",
+  lashConnection: "connectTriangle",
+  connectTriangle: "halfCloseEye",
+  halfCloseEye: "fillTriangle",
+  fillTriangle: "cleanWithAngle",
+  cleanWithAngle: "finished",
+  cleanEdge: "finished"
+};
 
 const EYES = {
   left: {
@@ -1755,6 +1794,18 @@ function getStableLesson(nextKey) {
   const noRecentDrawing = now - state.lastLinerSeenAt > 1600;
   const isRegressing = nextOrder < currentOrder;
   const dwellTime = now - state.lessonChangedAt;
+  const timedNextKey = TIMED_LESSON_SEQUENCE[state.currentLessonKey];
+
+  if (timedNextKey && dwellTime >= COACH_STEP_DURATION_MS) {
+    state.currentLessonKey = timedNextKey;
+    state.pendingLessonKey = timedNextKey;
+    state.pendingLessonSince = now;
+    state.lessonChangedAt = now;
+    state.candidateLessonKey = timedNextKey;
+    state.candidateLessonFrames = 0;
+    updateCoachPhaseForLesson(timedNextKey);
+    return getLesson(timedNextKey);
+  }
 
   if (isRegressing) {
     state.candidateLessonKey = state.currentLessonKey;
@@ -1847,6 +1898,7 @@ function updateCoachPhaseForLesson(key) {
 
 function getRequiredLessonFrames(key) {
   const priority = getLessonPriority(key);
+  if (key === "finished") return 1;
   if (state.currentLessonKey === "halfCloseEye" && key === "fillTriangle") return 8;
   if (priority >= 6) return 24;
   if (priority >= 5) return 18;
@@ -1856,6 +1908,7 @@ function getRequiredLessonFrames(key) {
 
 function getMinimumLessonDwell(currentKey, nextKey) {
   if (currentKey === nextKey) return 0;
+  if (TIMED_LESSON_SEQUENCE[currentKey]) return COACH_STEP_DURATION_MS;
   if (getLessonPriority(nextKey) >= 5) return 1800;
   if (getLessonPriority(nextKey) >= 3) return 1400;
   return 1100;
@@ -1900,7 +1953,8 @@ function getLessonPriority(key) {
     connectTriangle: 5,
     fillTriangle: 6,
     cleanWithAngle: 6,
-    cleanEdge: 7
+    cleanEdge: 7,
+    finished: 15
   };
 
   return priorities[key] || 1;
@@ -1945,7 +1999,8 @@ function getLessonOrder(key) {
     halfCloseEye: 12,
     fillTriangle: 13,
     cleanWithAngle: 14,
-    cleanEdge: 14
+    cleanEdge: 14,
+    finished: 15
   };
 
   return order[key] ?? getLessonPriority(key);
@@ -2242,6 +2297,13 @@ function getLesson(key) {
       message: "The wing has its shape. Stop adding liner. If you want sharpness, clean the lower edge instead of thickening the top.",
       tip: "Makeup artists often perfect a wing by removing a little, not by adding more.",
       next: "Use an angled brush or cotton tip and sweep outward away from the eye."
+    },
+    finished: {
+      label: "Finished",
+      title: "Your wing is complete",
+      message: "You have built the tail, connected it to the lash line, and filled the shape. Put the pen down and look straight ahead to see the wing as it will actually be worn.",
+      tip: "A finished wing does not need to be perfectly identical to the other eye. It should feel balanced when your face is relaxed.",
+      next: "Choose the other eye to continue, or press Reset coaching to practice this eye again."
     }
   };
 
