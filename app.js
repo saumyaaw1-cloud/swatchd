@@ -325,6 +325,7 @@ async function startCamera() {
 
     video.addEventListener("loadedmetadata", () => {
       resizeCanvasToVideo();
+      setImmediateLesson("placeTip");
       requestAnimationFrame(loop);
     }, { once: true });
 
@@ -368,10 +369,7 @@ function loop() {
         return;
       }
 
-      state.currentLessonKey = "findFace";
       state.currentGeometry = null;
-      state.pendingLessonKey = "findFace";
-      state.pendingLessonSince = performance.now();
       updateHud("Searching", "Find face", "--", getLesson("findFace"));
       requestAnimationFrame(loop);
       return;
